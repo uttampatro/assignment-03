@@ -12,7 +12,7 @@ function Blog() {
                         Blog
                     </Typography>
 
-                    <Link href="/signUp">
+                    <Link>
                         <Button variant="outlined" size="small">
                             Sign up
                         </Button>

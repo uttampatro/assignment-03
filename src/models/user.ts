@@ -4,6 +4,7 @@ export enum UserRole {
 }
 export interface User {
     id: null;
-    email: '';
+    name: string;
+    email: string;
     role: UserRole.CONTENT_WRITER;
 }

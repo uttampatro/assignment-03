@@ -1,30 +1,31 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    CssBaseline,
-    Grid,
-    Link,
-    TextField,
-    Typography
-} from '@material-ui/core';
+import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from '@material-ui/core';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as React from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { UsersState } from '../../redux/users/states';
 
 const theme = createTheme();
 
-export default function SignIp() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+export default function SignIn() {
+    const dispatch = useDispatch();
+
+    const { user, isAuthenticated }: UsersState = useSelector((state: RootStateOrAny) => state.users);
+
+    // const { email, password } = user;
+    // const handleSubmit = async (e: any) => {
+    //     e.preventDefault();
+    //     try {
+    //         const result = await dispatch(login(email, password))
+    //         if (email) {
+    //             history.push('/blogs')
+    //         }
+    //         console.log(result)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+
+    // };
 
     return (
         <ThemeProvider theme={theme}>
@@ -47,7 +48,7 @@ export default function SignIp() {
                     <Typography component="h1" variant="h5">
                         Sign In
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form" sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />

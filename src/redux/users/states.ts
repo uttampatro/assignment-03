@@ -21,6 +21,7 @@ const initialUserState: UsersState = {
     user: {
         id: null,
         email: '',
+        name: '',
         role: UserRole.CONTENT_WRITER,
     },
 
