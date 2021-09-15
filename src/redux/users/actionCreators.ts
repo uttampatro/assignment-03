@@ -23,6 +23,26 @@ function gettingUserProfileFailure(error: string): UsersAction & {error: string}
     };
 }
 
+function gettingAllUsers(): UsersAction {
+    return {
+        type: actions.GETTING_ALL_USERS,
+    };
+}
+
+function gettingAllUsersSuccess(allUsers: User[]): UsersAction & {allUsers: User[]} {
+    return {
+        type: actions.GETTING_ALL_USERS_SUCCESS,
+        allUsers,
+    };
+}
+
+function gettingAllUsersFailure(error: string): UsersAction & {error: string} {
+    return {
+        type: actions.GETTING_ALL_USERS_FAILURE,
+        error,
+    };
+}
+
 function loggingIn(): UsersAction {
     return {
         type: actions.LOGGING_IN,
@@ -67,6 +87,9 @@ export {
     gettingUserProfile,
     gettingUserProfileSuccess,
     gettingUserProfileFailure,
+    gettingAllUsers,
+    gettingAllUsersSuccess,
+    gettingAllUsersFailure,
     loggingIn,
     loggingInSuccess,
     loggingInFailure,

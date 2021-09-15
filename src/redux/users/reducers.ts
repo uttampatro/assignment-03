@@ -17,7 +17,6 @@ function users(state: UsersState = initialUserState, action: UsersAction): Users
                 isFetchingUser: false,
                 isFetchingUserSuccess: true,
                 isFetchingUserFailure: false,
-                isAuthenticated: true,
                 user: {...state.user, ...action.user},
             };
         case actions.GETTING_PROFILE_DETAILS_FAILURE:
@@ -26,6 +25,43 @@ function users(state: UsersState = initialUserState, action: UsersAction): Users
                 isFetchingUser: false,
                 isFetchingUserSuccess: false,
                 isFetchingUserFailure: true,
+                error: action.error,
+            };
+        case actions.GETTING_ALL_USERS:
+            return {
+                ...state,
+                isFetchingAllUsers: true,
+                isFetchingAllUsersSuccess: false,
+                isFetchingAllUsersFailure: false,
+            };
+        case actions.GETTING_ALL_USERS_SUCCESS:
+            return {
+                ...state,
+                isFetchingAllUsers: false,
+                isFetchingAllUsersSuccess: true,
+                isFetchingAllUsersFailure: false,
+                allUsers: action.allUsers,
+            };
+        case actions.GETTING_ALL_USERS_FAILURE:
+            return {
+                ...state,
+                isFetchingAllUsers: false,
+                isFetchingAllUsersSuccess: false,
+                isFetchingAllUsersFailure: true,
+                error: action.error,
+            };
+        case actions.LOGGING_IN:
+            return {
+                ...state,
+            };
+        case actions.LOGGING_IN_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+            };
+        case actions.LOGGING_IN_FAILURE:
+            return {
+                ...state,
                 error: action.error,
             };
         default:

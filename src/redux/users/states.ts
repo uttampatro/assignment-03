@@ -8,6 +8,12 @@ export interface UsersState {
     isFetchingUserSuccess: boolean;
     isFetchingUserFailure: boolean;
 
+    allUsers: User[];
+
+    isFetchingAllUsers: boolean;
+    isFetchingAllUsersSuccess: boolean;
+    isFetchingAllUsersFailure: boolean;
+
     error: string;
 }
 
@@ -23,6 +29,12 @@ const initialUserState: UsersState = {
     isFetchingUser: false,
     isFetchingUserSuccess: false,
     isFetchingUserFailure: false,
+
+    allUsers: [],
+
+    isFetchingAllUsers: false,
+    isFetchingAllUsersSuccess: false,
+    isFetchingAllUsersFailure: false,
 
     error: '',
 };
