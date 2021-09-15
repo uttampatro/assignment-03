@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+import { RootStateOrAny, useSelector } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Blogs from './pages/blogs';
+import Signin from './pages/signin';
+import Signup from './pages/signup';
+import Users from './pages/users';
+import { UsersState } from './redux/users/states';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const { isFetchingUser, isAuthenticated }: UsersState = useSelector((state: RootStateOrAny) => state.users);
+
+    if (isFetchingUser) return <>Loading...</>;
+
+    return (
+        <Switch>
+            <Route exact path={'/'}>
+                {isAuthenticated ? <Redirect to={{ pathname: '/blogs' }} /> : <Signin />}
+            </Route>
+            <Route path={'/signup'} component={Signup} />
+            <Route path={'/signin'} component={Signin} />
+            <Route path={'/blogs'} component={Blogs} />
+            <Route path={'/users'} component={Users} />
+        </Switch>
+    );
 }
 
 export default App;
