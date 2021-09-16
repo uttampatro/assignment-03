@@ -5,7 +5,7 @@ import './App.css';
 import Blog from './pages/blog';
 import BlogList from './pages/blogs';
 import CreateBlog from './pages/createBlog';
-import SignIn from './pages/signIn';
+import SignIn from './pages/SignIn';
 import SignUp from './pages/signUp';
 import Users from './pages/users';
 import { UsersState } from './redux/users/states';
