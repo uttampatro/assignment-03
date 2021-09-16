@@ -3,6 +3,8 @@ import {User, UserRole} from '../../models/user';
 export interface UsersState {
     user: User;
     isAuthenticated: boolean;
+    email: string;
+    password: string;
 
     isFetchingUser: boolean;
     isFetchingUserSuccess: boolean;
@@ -22,9 +24,11 @@ const initialUserState: UsersState = {
         id: null,
         email: '',
         name: '',
+        password: '',
         role: UserRole.CONTENT_WRITER,
     },
-
+    email: '',
+    password: '',
     isAuthenticated: false,
 
     isFetchingUser: false,

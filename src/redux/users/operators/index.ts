@@ -5,7 +5,7 @@ import {logout} from './logout';
 
 export interface IUserOperators {
     getProfileDetails(): void;
-    login(authDto: {email: string; password: string}): void;
+    login(email: string, password: string): void;
     logout(): void;
     getAllUsers(): void;
 }

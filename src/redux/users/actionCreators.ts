@@ -43,6 +43,20 @@ function gettingAllUsersFailure(error: string): UsersAction & {error: string} {
     };
 }
 
+function setEmail(email: string): UsersAction & {email: string} {
+    return {
+        type: actions.SET_EMAIL,
+        email,
+    };
+}
+
+function setPassword(password: string): UsersAction & {password: string} {
+    return {
+        type: actions.SET_PASSWORD,
+        password,
+    };
+}
+
 function loggingIn(): UsersAction {
     return {
         type: actions.LOGGING_IN,
@@ -90,6 +104,8 @@ export {
     gettingAllUsers,
     gettingAllUsersSuccess,
     gettingAllUsersFailure,
+    setEmail,
+    setPassword,
     loggingIn,
     loggingInSuccess,
     loggingInFailure,

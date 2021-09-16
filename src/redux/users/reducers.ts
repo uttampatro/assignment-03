@@ -50,6 +50,16 @@ function users(state: UsersState = initialUserState, action: UsersAction): Users
                 isFetchingAllUsersFailure: true,
                 error: action.error,
             };
+        case actions.SET_EMAIL:
+            return {
+                ...state,
+                email: action.email,
+            };
+        case actions.SET_PASSWORD:
+            return {
+                ...state,
+                password: action.password,
+            };
         case actions.LOGGING_IN:
             return {
                 ...state,

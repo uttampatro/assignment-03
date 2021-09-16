@@ -3,6 +3,9 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as React from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import history from '../../history';
+import { setEmail, setPassword } from '../../redux/users/actionCreators';
+import { login } from '../../redux/users/operators';
 import { UsersState } from '../../redux/users/states';
 
 const theme = createTheme();
@@ -12,20 +15,19 @@ export default function SignIn() {
 
     const { user, isAuthenticated }: UsersState = useSelector((state: RootStateOrAny) => state.users);
 
-    // const { email, password } = user;
-    // const handleSubmit = async (e: any) => {
-    //     e.preventDefault();
-    //     try {
-    //         const result = await dispatch(login(email, password))
-    //         if (email) {
-    //             history.push('/blogs')
-    //         }
-    //         console.log(result)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-
-    // };
+    const { email, password } = user;
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        try {
+            const result = await dispatch(login(email, password));
+            if (email) {
+                history.push('/blogs');
+            }
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -51,11 +53,22 @@ export default function SignIn() {
                     <Box component="form" sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                                <TextField
+                                    required
+                                    // value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
+                                    // value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     fullWidth
                                     name="password"
                                     label="Password"
@@ -66,6 +79,7 @@ export default function SignIn() {
                             </Grid>
                         </Grid>
                         <Button
+                            onClick={handleSubmit}
                             type="submit"
                             fullWidth
                             variant="contained"
