@@ -13,10 +13,14 @@ import {
     TableRow,
     ThemeProvider,
     Toolbar,
-    Typography,
+    Typography
 } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import history from '../../history';
+import { getAllBlogs } from '../../redux/blogs/operators';
+import { BlogsState } from '../../redux/blogs/states';
+import { logout } from '../../redux/users/operators';
 
 const useStyles = makeStyles({
     table: {
@@ -39,62 +43,33 @@ const useStyles = makeStyles({
     },
 });
 
-const blogs = [
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-    },
-];
-
-const Blogs = (props: any) => {
+const BlogList = (props: any) => {
     const classes = useStyles();
     const theme = createTheme();
-    // const dispatch = useDispatch();
-    // const { blogs, isFetchingAllBlogs }: BlogsState = useSelector((state: RootStateOrAny) => state.users);
+    const dispatch = useDispatch();
+    const { blogs, isFetchingAllBlogs, isFetchingAllBlogsSuccess }: BlogsState = useSelector((state: RootStateOrAny) => state.blogs);
 
-    // useEffect(() => {
-    //     dispatch(getAllBlogs());
-    // }, []);
+    useEffect(() => {
+        dispatch(getAllBlogs());
+    }, []);
 
-    // if (isFetchingAllBlogs) return <>Loading...</>;
-
-    // TODO: Show blogs table
-    // <>{blogs.map(blog => blog.id)}</>
+    const onLogout = () => {
+        dispatch(logout())
+        history.push('/signIn');
+    }
 
     const goToBlog = () => {
         history.push('/blog');
     };
+
+    if (isFetchingAllBlogs) return <>Loading...</>;
 
     return (
         <div>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Container maxWidth="lg">
-                    <Toolbar style={{display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray'}}>
+                    <Toolbar style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray' }}>
                         <Typography component="h2" variant="h5" color="inherit" align="center" noWrap>
                             Blog
                         </Typography>
@@ -105,9 +80,14 @@ const Blogs = (props: any) => {
                                 </Button>
                             </Link>
                         </Grid>
+                        <Grid>
+                            <Button variant="outlined" size="small" onClick={onLogout}>
+                                Logout
+                                </Button>
+                        </Grid>
                     </Toolbar>
                     <main>
-                        <Grid style={{paddingTop: '20px', paddingLeft: '20%'}} container spacing={4}>
+                        <Grid style={{ paddingTop: '20px', paddingLeft: '20%' }} container spacing={4}>
                             <form method="post">
                                 <div className="home_body">
                                     <Table className={classes.table}>
@@ -121,17 +101,19 @@ const Blogs = (props: any) => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {blogs.map(blog => (
-                                                <TableRow className={classes.row} onClick={goToBlog}>
+                                            {blogs?.map(blog => (
+                                                <TableRow className={classes.row} >
                                                     <TableCell>1</TableCell>
-                                                    <TableCell>{blog.title}</TableCell>
-                                                    <TableCell>uttam</TableCell>
-                                                    <TableCell>{blog.date}</TableCell>
+                                                    <TableCell onClick={goToBlog}>
+                                                        <Link>{blog.title}</Link >
+                                                    </TableCell>
+                                                    <TableCell>{blog.createdBy.name}</TableCell>
+                                                    <TableCell>{blog.createdAt}</TableCell>
 
                                                     <TableCell>
                                                         <Button color="secondary" variant="contained">
                                                             Delete
-                                                        </Button>
+                                                    </Button>
                                                     </TableCell>
                                                 </TableRow>
                                             ))}
@@ -147,4 +129,4 @@ const Blogs = (props: any) => {
     );
 };
 
-export default Blogs;
+export default BlogList;

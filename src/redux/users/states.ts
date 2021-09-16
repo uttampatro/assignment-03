@@ -16,6 +16,14 @@ export interface UsersState {
     isFetchingAllUsersSuccess: boolean;
     isFetchingAllUsersFailure: boolean;
 
+    isLoggingIn: boolean;
+    isLoggingInSuccess: boolean;
+    isLoggingInFailure: boolean;
+
+    isLoggingOut: boolean;
+    isLoggingOutSuccess: boolean;
+    isLoggingOutFailure: boolean;
+
     error: string;
 }
 
@@ -24,7 +32,6 @@ const initialUserState: UsersState = {
         id: null,
         email: '',
         name: '',
-        password: '',
         role: UserRole.CONTENT_WRITER,
     },
     email: '',
@@ -40,6 +47,14 @@ const initialUserState: UsersState = {
     isFetchingAllUsers: false,
     isFetchingAllUsersSuccess: false,
     isFetchingAllUsersFailure: false,
+
+    isLoggingIn: false,
+    isLoggingInSuccess: false,
+    isLoggingInFailure: false,
+
+    isLoggingOut: false,
+    isLoggingOutSuccess: false,
+    isLoggingOutFailure: false,
 
     error: '',
 };

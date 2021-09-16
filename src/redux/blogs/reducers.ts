@@ -17,7 +17,7 @@ function users(state: BlogsState = initialBlogsState, action: BlogsAction): Blog
                 isFetchingAllBlogs: false,
                 isFetchingAllBlogsSuccess: true,
                 isFetchingAllBlogsFailure: false,
-                blogs: state.blogs,
+                blogs: action.blogs,
             };
         case actions.GETTING_ALL_BLOGS_FAILURE:
             return {

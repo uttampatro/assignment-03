@@ -13,7 +13,7 @@ import initialUserState, {
 
 export interface RootState {
     users: (state: UsersState | undefined, action: UsersAction) => UsersState;
-    notifications: (
+    blogs: (
         state: BlogsState | undefined,
         action: BlogsState
     ) => BlogsState;
@@ -25,7 +25,7 @@ const appReducers = combineReducers({
 });
 
 const rootReducer = (state: any, action: any) => {
-    if (action.type === actions.USER_LOGGED_OUT) {
+    if (action.type === actions.LOGGING_OUT_SUCCESS) {
         state = {
             users: initialUserState,
             blogs: initialBlogsState,

@@ -43,30 +43,15 @@ function gettingAllUsersFailure(error: string): UsersAction & {error: string} {
     };
 }
 
-function setEmail(email: string): UsersAction & {email: string} {
-    return {
-        type: actions.SET_EMAIL,
-        email,
-    };
-}
-
-function setPassword(password: string): UsersAction & {password: string} {
-    return {
-        type: actions.SET_PASSWORD,
-        password,
-    };
-}
-
 function loggingIn(): UsersAction {
     return {
         type: actions.LOGGING_IN,
     };
 }
 
-function loggingInSuccess(user: User): UsersAction & {user: User} {
+function loggingInSuccess(): UsersAction {
     return {
         type: actions.LOGGING_IN_SUCCESS,
-        user,
     };
 }
 
@@ -83,10 +68,9 @@ function loggingOut(): UsersAction {
     };
 }
 
-function loggingOutSuccess(user: User): UsersAction & {user: User} {
+function loggingOutSuccess(): UsersAction {
     return {
         type: actions.LOGGING_IN_SUCCESS,
-        user,
     };
 }
 
@@ -104,8 +88,6 @@ export {
     gettingAllUsers,
     gettingAllUsersSuccess,
     gettingAllUsersFailure,
-    setEmail,
-    setPassword,
     loggingIn,
     loggingInSuccess,
     loggingInFailure,

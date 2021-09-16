@@ -1,20 +1,17 @@
-import { actionCreators } from '..';
+import {actionCreators} from '..';
 import authService from '../../../services/authService';
 
 function login(email: string, password: string) {
     return async (dispatch: any) => {
         dispatch(actionCreators.loggingIn());
 
-        const result = await authService.login(email, password);
-
-        if (result.isLeft()) {
-            const error: string = result.value;
-            dispatch(actionCreators.loggingInFailure(error));
-        } else {
-            dispatch(actionCreators.loggingInSuccess(result.value.getValue()));
+        try {
+            await authService.login(email, password);
+            dispatch(actionCreators.loggingInSuccess());
+        } catch (e: any) {
+            dispatch(actionCreators.loggingInFailure(JSON.stringify(e)));
         }
     };
 }
 
-export { login };
-
+export {login};
