@@ -27,9 +27,9 @@ const initialUserState: UsersState = {
         password: '',
         role: UserRole.CONTENT_WRITER,
     },
+    isAuthenticated: false,
     email: '',
     password: '',
-    isAuthenticated: false,
 
     isFetchingUser: false,
     isFetchingUserSuccess: false,
