@@ -8,5 +8,5 @@
     "html.format.unformattedContentDelimiter": "",
     "diffEditor.ignoreTrimWhitespace": false,
     "prettier.tabWidth": 4,
-    "cSpell.words": ["Autosize", "signin"]
+    "cSpell.words": ["Autosize", "signin", "signup"]
 }

@@ -6,7 +6,7 @@ import Blog from './pages/blog';
 import BlogList from './pages/blogs';
 import CreateBlog from './pages/createBlog';
 import SignIn from './pages/signin1';
-import SignUp from './pages/signUp';
+import SignUp from './pages/signup';
 import Users from './pages/users';
 import { UsersState } from './redux/users/states';
 
