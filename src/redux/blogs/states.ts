@@ -18,6 +18,10 @@ export interface BlogsState {
     isDeletingBlogSuccess: boolean;
     isDeletingBlogFailure: boolean;
 
+    isCreatingBlog: boolean,
+    isCreatingBlogSuccess: boolean,
+    isCreatingBlogFailure: boolean,
+
     error: string;
 }
 
@@ -49,6 +53,10 @@ const initialBlogsState: BlogsState = {
     isDeletingBlog: false,
     isDeletingBlogSuccess: false,
     isDeletingBlogFailure: false,
+
+    isCreatingBlog: false,
+    isCreatingBlogSuccess: false,
+    isCreatingBlogFailure: false,
 
     error: '',
 };

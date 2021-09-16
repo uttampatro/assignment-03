@@ -62,6 +62,26 @@ function deletingBlogFailure(error: string): BlogsAction & {error: string} {
     };
 }
 
+function creatingBlog(): BlogsAction {
+    return {
+        type: actions.CREATING_BLOG,
+    };
+}
+
+function creatingBlogSuccess(blog: Blog): BlogsAction & {blog: Blog} {
+    return {
+        type: actions.CREATING_BLOG_SUCCESS,
+        blog,
+    };
+}
+
+function creatingBlogFailure(error: string): BlogsAction & {error: string} {
+    return {
+        type: actions.CREATING_BLOG_FAILURE,
+        error,
+    };
+}
+
 export {
     gettingAllBlogs,
     gettingAllBlogsSuccess,
@@ -72,4 +92,7 @@ export {
     deletingBlog,
     deletingBlogSuccess,
     deletingBlogFailure,
+    creatingBlog,
+    creatingBlogSuccess,
+    creatingBlogFailure,
 };

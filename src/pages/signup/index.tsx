@@ -17,26 +17,56 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import history from '../../history';
+import { createUser } from '../../redux/users/operators';
+import { UsersState } from '../../redux/users/states';
+
 
 const theme = createTheme();
 
 export default function SignUp() {
+    const dispatch = useDispatch();
+    const { isCreatingUser, isCreatingUserSuccess, isCreatingUserFailure }: UsersState = useSelector((state: RootStateOrAny) => state.users);
 
-    const [role, setRole] = React.useState('');
+    const [role, setRole] = useState('');
 
     const handleChange = (e: any) => {
         setRole(e.target.value as string);
     };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+    const [currentUser, setCurrentUser] = useState({
+        email: '',
+        password: '',
+        name: '',
+    })
+    const { email, name, password } = currentUser
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        try {
+            // dispatch(createUser(email, password, name,));
+        } catch (error) {
+            console.log(error);
+        }
     };
+
+    useEffect(() => {
+        if (isCreatingUserSuccess) {
+            history.push('/blogs');
+        }
+    }, [isCreatingUserSuccess])
+
+    useEffect(() => {
+        if (isCreatingUserFailure) {
+            alert("Something went wrong")
+        }
+    }, [isCreatingUserFailure])
+
+    const handleInputChange = (e: any) => {
+        setCurrentUser(prev => {
+            return { ...prev, [e.target.name]: e.target.value }
+        })
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -62,15 +92,16 @@ export default function SignUp() {
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <TextField required fullWidth id="Name" label="Name" name="name" autoComplete="name" />
+                                <TextField onClick={handleInputChange} required fullWidth id="Name" label="Name" name="name" autoComplete="name" />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                                <TextField onClick={handleInputChange} required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
+                                    onClick={handleInputChange}
                                     name="password"
                                     label="Password"
                                     type="password"

@@ -20,6 +20,10 @@ export interface UsersState {
     isLoggingInSuccess: boolean;
     isLoggingInFailure: boolean;
 
+    isCreatingUser: boolean;
+    isCreatingUserSuccess: boolean;
+    isCreatingUserFailure: boolean;
+
     isLoggingOut: boolean;
     isLoggingOutSuccess: boolean;
     isLoggingOutFailure: boolean;
@@ -27,7 +31,6 @@ export interface UsersState {
     isDeletingUser: boolean;
     isDeletingUserSuccess: boolean;
     isDeletingUserFailure: boolean;
-
 
     error: string;
 }
@@ -56,6 +59,10 @@ const initialUserState: UsersState = {
     isLoggingIn: false,
     isLoggingInSuccess: false,
     isLoggingInFailure: false,
+
+    isCreatingUser: false,
+    isCreatingUserSuccess: false,
+    isCreatingUserFailure: false,
 
     isLoggingOut: false,
     isLoggingOutSuccess: false,

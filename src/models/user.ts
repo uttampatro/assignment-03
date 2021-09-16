@@ -6,5 +6,5 @@ export interface User {
     _id: null;
     name: string;
     email: string;
-    role: UserRole.CONTENT_WRITER;
+    role: UserRole.CONTENT_WRITER ;
 }

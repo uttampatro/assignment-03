@@ -73,6 +73,30 @@ function users(state: UsersState = initialUserState, action: UsersAction): Users
                 isLoggingInFailure: true,
                 error: action.error,
             };
+        case actions.CREATING_USER:
+            return {
+                ...state,
+                isCreatingUser: true,
+                isCreatingUserSuccess: false,
+                isCreatingUserFailure: false,
+            };
+        case actions.CREATING_USER_SUCCESS:
+            return {
+                ...state,
+                isCreatingUser: false,
+                isCreatingUserSuccess: true,
+                isCreatingUserFailure: false,
+                user: action.user,
+                isAuthenticated: true,
+            };
+        case actions.CREATING_USER_FAILURE:
+            return {
+                ...state,
+                isCreatingUser: false,
+                isCreatingUserSuccess: false,
+                isCreatingUserFailure: true,
+                error: action.error,
+            };
         case actions.LOGGING_OUT_SUCCESS:
             return {
                 ...state,

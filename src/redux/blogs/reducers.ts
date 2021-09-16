@@ -72,6 +72,29 @@ function users(state: BlogsState = initialBlogsState, action: BlogsAction): Blog
                 isDeletingBlogFailure: true,
                 error: action.error,
             };
+        case actions.CREATING_BLOG:
+            return {
+                ...state,
+                isCreatingBlog: true,
+                isCreatingBlogSuccess: false,
+                isCreatingBlogFailure: false,
+            };
+        case actions.CREATING_BLOG_SUCCESS:
+            return {
+                ...state,
+                isCreatingBlog: false,
+                isCreatingBlogSuccess: true,
+                isCreatingBlogFailure: false,
+                blog: action.blog,
+            };
+        case actions.CREATING_BLOG_FAILURE:
+            return {
+                ...state,
+                isCreatingBlog: false,
+                isCreatingBlogSuccess: false,
+                isCreatingBlogFailure: true,
+                error: action.error,
+            };
         default:
             return state;
     }

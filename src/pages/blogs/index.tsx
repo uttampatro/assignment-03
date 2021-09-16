@@ -22,7 +22,6 @@ import { deleteBlog, getAllBlogs } from '../../redux/blogs/operators';
 import { BlogsState } from '../../redux/blogs/states';
 import { logout } from '../../redux/users/operators';
 
-
 const useStyles = makeStyles({
     table: {
         width: '100%',
@@ -48,21 +47,29 @@ const BlogList = (props: any) => {
     const classes = useStyles();
     const theme = createTheme();
     const dispatch = useDispatch();
-    const { blogs, isFetchingAllBlogs, isFetchingAllBlogsSuccess }: BlogsState = useSelector((state: RootStateOrAny) => state.blogs);
-
+    const { blogs, blog, isFetchingAllBlogs, isFetchingAllBlogsSuccess, isFetchingAllBlogsFailure }: BlogsState = useSelector(
+        (state: RootStateOrAny) => state.blogs
+    );
+    const { createdBy } = blog;
     useEffect(() => {
         dispatch(getAllBlogs());
     }, []);
 
     const deletingBlog = async (id: any) => {
-        const data = await dispatch(deleteBlog(id))
+        const data = await dispatch(deleteBlog(id));
         window.location = window.location;
         history.push('/blogs');
-    }
+    };
 
     const onLogout = () => {
         dispatch(logout());
     };
+
+    // useEffect(() => {
+    //     if (isFetchingAllBlogsFailure) {
+    //         alert('Something went wrong');
+    //     }
+    // }, [isFetchingAllBlogsFailure]);
 
     if (isFetchingAllBlogs) return <>Loading...</>;
 
@@ -75,6 +82,23 @@ const BlogList = (props: any) => {
                         <Typography component="h2" variant="h5" color="inherit" align="center" noWrap>
                             Blog
                         </Typography>
+                        {/* {createdBy.role === UserRole.CONTENT_WRITER ? (
+                            <Grid>
+                                <Link href="/createBlog">
+                                    <Button variant="outlined" size="small">
+                                        Add Blog
+                                    </Button>
+                                </Link>
+                            </Grid>
+                        ) : (
+                            <Grid>
+                                <Link href="/users">
+                                    <Button variant="outlined" size="small">
+                                        Users
+                                    </Button>
+                                </Link>
+                            </Grid>
+                        )} */}
                         <Grid>
                             <Link href="/users">
                                 <Button variant="outlined" size="small">
@@ -82,6 +106,7 @@ const BlogList = (props: any) => {
                                 </Button>
                             </Link>
                         </Grid>
+
                         <Grid>
                             <Link href="/signIn">
                                 <Button variant="outlined" size="small" onClick={onLogout}>
@@ -116,7 +141,11 @@ const BlogList = (props: any) => {
                                                     <TableCell>{blog.createdAt}</TableCell>
 
                                                     <TableCell>
-                                                        <Button onClick={() => deletingBlog(blog._id)} color="secondary" variant="contained">
+                                                        <Button
+                                                            onClick={() => deletingBlog(blog._id)}
+                                                            color="secondary"
+                                                            variant="contained"
+                                                        >
                                                             Delete
                                                         </Button>
                                                     </TableCell>
