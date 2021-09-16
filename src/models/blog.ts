@@ -1,9 +1,10 @@
 import {User} from './user';
 
 export interface Blog {
-    id: string;
+    _id: string;
     title: string;
     article: string;
+    imageUrl: string
     createdBy: User;
-    createdAt: Date;
+    createdAt: null;
 }

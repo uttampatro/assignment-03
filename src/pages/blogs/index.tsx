@@ -18,9 +18,10 @@ import {
 import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import history from '../../history';
-import { getAllBlogs } from '../../redux/blogs/operators';
+import { deleteBlog, getAllBlogs } from '../../redux/blogs/operators';
 import { BlogsState } from '../../redux/blogs/states';
 import { logout } from '../../redux/users/operators';
+
 
 const useStyles = makeStyles({
     table: {
@@ -53,13 +54,14 @@ const BlogList = (props: any) => {
         dispatch(getAllBlogs());
     }, []);
 
-    const onLogout = () => {
-        dispatch(logout())
-        history.push('/signIn');
+    const deletingBlog = async (id: any) => {
+        const data = await dispatch(deleteBlog(id))
+        window.location = window.location;
+        history.push('/blogs');
     }
 
-    const goToBlog = () => {
-        history.push('/blog');
+    const onLogout = () => {
+        dispatch(logout());
     };
 
     if (isFetchingAllBlogs) return <>Loading...</>;
@@ -81,13 +83,15 @@ const BlogList = (props: any) => {
                             </Link>
                         </Grid>
                         <Grid>
-                            <Button variant="outlined" size="small" onClick={onLogout}>
-                                Logout
+                            <Link href="/signIn">
+                                <Button variant="outlined" size="small" onClick={onLogout}>
+                                    Logout
                                 </Button>
+                            </Link>
                         </Grid>
                     </Toolbar>
                     <main>
-                        <Grid style={{ paddingTop: '20px', paddingLeft: '20%' }} container spacing={4}>
+                        <Grid style={{ paddingTop: '20px' }} container spacing={4}>
                             <form method="post">
                                 <div className="home_body">
                                     <Table className={classes.table}>
@@ -102,18 +106,19 @@ const BlogList = (props: any) => {
                                         </TableHead>
                                         <TableBody>
                                             {blogs?.map(blog => (
-                                                <TableRow className={classes.row} >
-                                                    <TableCell>1</TableCell>
-                                                    <TableCell onClick={goToBlog}>
-                                                        <Link>{blog.title}</Link >
+                                                <TableRow className={classes.row}>
+                                                    <TableCell>{blog._id}</TableCell>
+                                                    <TableCell>
+                                                        <Link href={`/blog/${blog._id}`}>{blog.title}</Link>
                                                     </TableCell>
-                                                    <TableCell>{blog.createdBy.name}</TableCell>
+
+                                                    <TableCell>{blog.createdBy}</TableCell>
                                                     <TableCell>{blog.createdAt}</TableCell>
 
                                                     <TableCell>
-                                                        <Button color="secondary" variant="contained">
+                                                        <Button onClick={() => deletingBlog(blog._id)} color="secondary" variant="contained">
                                                             Delete
-                                                    </Button>
+                                                        </Button>
                                                     </TableCell>
                                                 </TableRow>
                                             ))}

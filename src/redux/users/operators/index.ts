@@ -1,3 +1,4 @@
+import { deleteUser } from './deleteUser';
 import {getAllUsers} from './getAllUser';
 import {getProfileDetails} from './getProfileDetails';
 import {login} from './login';
@@ -8,6 +9,7 @@ export interface IUserOperators {
     login(email: string, password: string): void;
     logout(): void;
     getAllUsers(): void;
+    deleteUser(): void;
 }
 
-export {getProfileDetails, getAllUsers, login, logout};
+export {getProfileDetails, getAllUsers, login, logout, deleteUser};

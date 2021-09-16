@@ -17,8 +17,10 @@ import {
 } from '@material-ui/core';
 import { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../redux/users/operators';
+import history from '../../history';
+import { deleteUser, getAllUsers, logout } from '../../redux/users/operators';
 import { UsersState } from '../../redux/users/states';
+
 
 const useStyles = makeStyles({
     table: {
@@ -46,13 +48,23 @@ const Users = (props: any) => {
     const theme = createTheme();
 
     const dispatch = useDispatch();
-    const { allUsers, isFetchingAllUsers }: UsersState = useSelector((state: RootStateOrAny) => state.users);
+    const { allUsers, isFetchingAllUsers, isDeletingUser }: UsersState = useSelector((state: RootStateOrAny) => state.users);
 
     useEffect(() => {
         dispatch(getAllUsers())
     }, [])
 
-    // if (isFetchingAllUsers) return <>Loading...</>
+    const deletingUser = async (id: any) => {
+        const data = await dispatch(deleteUser(id))
+        window.location = window.location;
+        history.push('/users');
+    }
+
+    const onLogout = () => {
+        dispatch(logout());
+    };
+
+    if (isFetchingAllUsers) return <>Loading...</>
 
     // TODO: Show users table
     return (
@@ -71,9 +83,16 @@ const Users = (props: any) => {
                                 </Button>
                             </Link>
                         </Grid>
+                        <Grid>
+                            <Link href="/signIn">
+                                <Button variant="outlined" size="small" onClick={onLogout}>
+                                    Logout
+                                </Button>
+                            </Link>
+                        </Grid>
                     </Toolbar>
                     <main>
-                        <Grid style={{ paddingTop: '20px', paddingLeft: '22%' }} container spacing={4}>
+                        <Grid style={{ paddingTop: '20px' }} container spacing={4}>
                             <form method="post">
                                 <div className="home_body">
                                     <Table className={classes.table}>
@@ -90,12 +109,12 @@ const Users = (props: any) => {
                                             {allUsers.map(user => {
                                                 return (
                                                     <TableRow className={classes.row}>
-                                                        <TableCell>{user.id}</TableCell>
+                                                        <TableCell>{user._id}</TableCell>
                                                         <TableCell>{user.name}</TableCell>
                                                         <TableCell>{user.email}</TableCell>
                                                         <TableCell>{user.role}</TableCell>
                                                         <TableCell>
-                                                            <Button color="secondary" variant="contained">
+                                                            <Button onClick={() => deletingUser(user._id)} color="secondary" variant="contained">
                                                                 Delete
                                                             </Button>
                                                         </TableCell>
@@ -111,7 +130,7 @@ const Users = (props: any) => {
                     </main>
                 </Container>
             </ThemeProvider>
-        </div>
+        </div >
     );
 };
 

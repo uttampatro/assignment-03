@@ -23,4 +23,53 @@ function gettingAllBlogsFailure(error: string): BlogsAction & {error: string} {
     };
 }
 
-export {gettingAllBlogs, gettingAllBlogsSuccess, gettingAllBlogsFailure};
+function gettingBlogDetails(): BlogsAction {
+    return {
+        type: actions.GETTING_BLOG_DETAILS,
+    };
+}
+
+function gettingBlogDetailsSuccess(blog: Blog): BlogsAction & {blog: Blog} {
+    return {
+        type: actions.GETTING_BLOG_DETAILS_FAILURE,
+        blog,
+    };
+}
+
+function gettingBlogDetailsFailure(error: string): BlogsAction & {error: string} {
+    return {
+        type: actions.GETTING_BLOG_DETAILS_FAILURE,
+        error,
+    };
+}
+
+function deletingBlog(): BlogsAction {
+    return {
+        type: actions.DELETING_BLOG,
+    };
+}
+
+function deletingBlogSuccess(): BlogsAction {
+    return {
+        type: actions.DELETING_BLOG_SUCCESS,
+    };
+}
+
+function deletingBlogFailure(error: string): BlogsAction & {error: string} {
+    return {
+        type: actions.DELETING_BLOG_FAILURE,
+        error,
+    };
+}
+
+export {
+    gettingAllBlogs,
+    gettingAllBlogsSuccess,
+    gettingAllBlogsFailure,
+    gettingBlogDetails,
+    gettingBlogDetailsSuccess,
+    gettingBlogDetailsFailure,
+    deletingBlog,
+    deletingBlogSuccess,
+    deletingBlogFailure,
+};

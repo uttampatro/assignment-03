@@ -3,7 +3,7 @@ export enum UserRole {
     CONTENT_WRITER = 'content-writer',
 }
 export interface User {
-    id: null;
+    _id: null;
     name: string;
     email: string;
     role: UserRole.CONTENT_WRITER;

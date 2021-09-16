@@ -81,6 +81,25 @@ function loggingOutFailure(error: string): UsersAction & {error: string} {
     };
 }
 
+function deletingUser(): UsersAction {
+    return {
+        type: actions.DELETING_USER,
+    };
+}
+
+function deletingUserSuccess(): UsersAction {
+    return {
+        type: actions.DELETING_USER_SUCCESS,
+    };
+}
+
+function deletingUserFailure(error: string): UsersAction & {error: string} {
+    return {
+        type: actions.DELETING_USER_FAILURE,
+        error,
+    };
+}
+
 export {
     gettingUserProfile,
     gettingUserProfileSuccess,
@@ -94,4 +113,7 @@ export {
     loggingOut,
     loggingOutSuccess,
     loggingOutFailure,
+    deletingUser,
+    deletingUserSuccess,
+    deletingUserFailure,
 };

@@ -23,7 +23,7 @@ function App() {
             <Route path={'/signUp'} component={SignUp} />
             <Route path={'/signIn'} component={SignIn} />
             <Route path={'/blogs'} component={BlogList} />
-            <Route path={'/blog'} component={Blog} />
+            <Route path={'/blog/:id'} component={Blog} />
             <Route path={'/users'} component={Users} />
         </Switch>
     );

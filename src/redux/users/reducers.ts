@@ -81,6 +81,28 @@ function users(state: UsersState = initialUserState, action: UsersAction): Users
                 isLoggingOutFailure: false,
                 isAuthenticated: false,
             };
+        case actions.DELETING_USER:
+            return {
+                ...state,
+                isDeletingUser: true,
+                isDeletingUserSuccess: false,
+                isDeletingUserFailure: false,
+            };
+        case actions.DELETING_USER_SUCCESS:
+            return {
+                ...state,
+                isDeletingUser: false,
+                isDeletingUserSuccess: true,
+                isDeletingUserFailure: false,
+            };
+        case actions.DELETING_USER_FAILURE:
+            return {
+                ...state,
+                isDeletingUser: false,
+                isDeletingUserSuccess: false,
+                isDeletingUserFailure: true,
+                error: action.error,
+            };
         default:
             return state;
     }

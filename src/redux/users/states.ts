@@ -24,12 +24,17 @@ export interface UsersState {
     isLoggingOutSuccess: boolean;
     isLoggingOutFailure: boolean;
 
+    isDeletingUser: boolean;
+    isDeletingUserSuccess: boolean;
+    isDeletingUserFailure: boolean;
+
+
     error: string;
 }
 
 const initialUserState: UsersState = {
     user: {
-        id: null,
+        _id: null,
         email: '',
         name: '',
         role: UserRole.CONTENT_WRITER,
@@ -55,6 +60,10 @@ const initialUserState: UsersState = {
     isLoggingOut: false,
     isLoggingOutSuccess: false,
     isLoggingOutFailure: false,
+
+    isDeletingUser: false,
+    isDeletingUserSuccess: false,
+    isDeletingUserFailure: false,
 
     error: '',
 };
