@@ -2,12 +2,12 @@ import React from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Blog from './pages/blog/index';
-import BlogList from './pages/blogs/index';
-import CreateBlog from './pages/createBlog/index';
-import SignIn from './pages/signIn/index';
-import SignUp from './pages/signUp/index';
-import Users from './pages/users/index';
+import Blog from './pages/blog';
+import BlogList from './pages/blogs';
+import CreateBlog from './pages/createBlog';
+import SignIn from './pages/signIn';
+import SignUp from './pages/signUp';
+import Users from './pages/users';
 import { UsersState } from './redux/users/states';
 
 function App() {
